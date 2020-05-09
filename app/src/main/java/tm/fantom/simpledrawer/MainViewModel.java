@@ -65,7 +65,7 @@ public class MainViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
-        super.onCleared();
         thread.quit();
+        super.onCleared();
     }
 }

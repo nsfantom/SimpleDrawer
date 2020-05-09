@@ -105,20 +105,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void showContent(NetMenuItem netMenuItem) {
-        View v;
+        final View v;
         switch (netMenuItem.getFunction()) {
             default:
             case Funcs.TEXT:
-                v = getTextView();
-                getTextView().setText(netMenuItem.getParam());
+                v = getTextView(netMenuItem.getParam());
                 break;
             case Funcs.IMAGE:
-                v = getImageView();
-                new DownloadImageTask(getImageView()).execute(netMenuItem.getParam());
+                v = getImageView(netMenuItem.getParam());
                 break;
             case Funcs.URL:
-                v = getWebView();
-                getWebView().loadUrl(netMenuItem.getParam());
+                v = getWebView(netMenuItem.getParam());
                 break;
         }
         layout.container.removeAllViews();
@@ -134,21 +131,24 @@ public class MainActivity extends AppCompatActivity {
         return lp;
     }
 
-    private WebView getWebView() {
+    private WebView getWebView(String url) {
         if (wv == null) wv = new WebView(this);
+        wv.loadUrl(url);
         return wv;
     }
 
-    private AppCompatTextView getTextView() {
+    private AppCompatTextView getTextView(String txt) {
         if (tv == null) {
             tv = new AppCompatTextView(this);
             tv.setGravity(Gravity.CENTER);
         }
+        tv.setText(txt);
         return tv;
     }
 
-    private AppCompatImageView getImageView() {
+    private AppCompatImageView getImageView(String url) {
         if (iv == null) iv = new AppCompatImageView(this);
+        new DownloadImageTask(iv).execute(url);
         return iv;
     }
 
