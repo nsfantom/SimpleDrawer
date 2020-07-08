@@ -1,5 +1,6 @@
 package tm.fantom.simpledrawer;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
         return iv;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        @SuppressLint("StaticFieldLeak")
         ImageView bmImage;
 
         DownloadImageTask(ImageView bmImage) {
